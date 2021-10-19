@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+    text-align: center;
+}
+
+#box{
+    text-align: center;
+}
+
+.sel{
+    color: red;
+    background-color: rgb(202, 199, 199) !important;
+}
+
+#tab-switcher{
+    margin-top: 40px;
+}
+
+li > img{
+    height: 3rem;
+    text-align: center;
+}
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Window Switcher</title>
+    <script type="text/javascript" src="./index.js" defer></script>
+</head>
+
+<body>
+
+    <div class="card" style="text-align: center; width: 18rem; margin: 100px auto 0;">
+        <img id="image" src="..." class="card-img-top">
+        <div class="card-body">
+            <h2 id="title" class="card-title"> Card title</h2>
+            <p class="card-text" id="box"></p>
+        </div>
+
+    </div>
+
+    <div class="container table">
+        <ul id="tab-switcher" class="list-group list-group-horizontal justify-content-center">
+
+        </ul>
+    </div>
+    <script>
+        function Linkedlist() {
+    function Node(content) {
+        this.content = content;
+        this.next = this;
+        this.prev = this;
+    }
+
+    this.head = null;
+    this.tail = null;
+
+    this.add = function(content) {
+        if (!this.head) {
+            this.head = this.tail = new Node(content);
+        }
+        else {
+            this.tail.next = new Node(content);
+            this.tail.next.prev = this.tail;
+            this.tail = this.tail.next;
+            this.tail.next = this.head;
+            this.head.prev = this.tail;
+        }
+    }
+
+    this.move_to_front = function(node) {
+        if (node === this.head) {
+            return;
+        }
+
+        let temp = this.head;
+        let isTailNode = false;
+
+        while (temp.next !== node)
+            temp = temp.next;
+
+        if (temp.next === this.tail)
+            isTailNode = true;
+
+        if(!isTailNode){
+            temp.next = node.next;
+            node.next.prev = temp;
+        }
+        else{
+            this.tail = this.tail.prev;
+        }
+
+        node.next = this.head;
+        this.head.prev = node;
+        this.head = node;
+        this.tail.next = this.head;
+        this.head.prev = this.tail;
+    }
+}
+
+    </script>
+</body>
+
+</html>
